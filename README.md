@@ -1,23 +1,24 @@
-# fennec-lang 
+# fennec-lang
 
-## Features
+## Overview
 
-Basic syntax highlighting for the FenneC language based on the syntax highlighting of C.
+`fennec-lang` is a syntax highlighter based on the highlighting conventions used for C
 
 ## Known Issues
 
-There are certain things not quite properly highlighted. If you spot any further issues feel free to raise them [here](https://github.com/KaiErikNiermann/fennec-vscode/issues).
+I put this together quite quickly so there might still be some issues with the highlighting of certain stuff. If you come across any issues or have suggestions for enhancement, please don't hesitate to [raise them here](https://github.com/KaiErikNiermann/fennec-vscode/issues).
 
 ## Release Notes
 
-### 0.0.3 
+### Version 0.0.3
 
-Small fixes
+- Small fixes to improve overall extension 
 
-### 0.0.4
+### Version 0.0.4
 
-Fixes for recognition of operators and format strings.
+- Improved recognition of operators 
+- Added highlighting for format strings
 
-## Acknowledgements 
+## Acknowledgements
 
-The artist for the mascot is Mei-Li Nieuwland
+The artist for the wonderful FenneC mascot is [Mei-Li Nieuwland](https://liea.nl/).
