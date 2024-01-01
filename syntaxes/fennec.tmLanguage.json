@@ -1,0 +1,73 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "fennec",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"name": "comment.line.double-slash.fennec",
+			"match": "//.*$"
+		},
+		{
+			"name": "comment.block.fennec",
+			"begin": "/\\*",
+			"end": "\\*/"
+		},
+		{
+			"name": "keyword.other.modify.fennec",
+			"match": "(\\+|-|\\*|/|%|\\|\\||&&|&|\\||\\^|<<|>>)="
+		}, 
+		{
+			"name": "variable.other.fennec",
+			"match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
+		},
+		{
+			"name": "keyword.operator.assignment.fennec",
+			"match": "="
+		},
+		{
+            "name": "constant.numeric.yourlanguage",
+            "match": "0x[a-fA-F0-9]+|\\d+(\\.\\d*)?|\\.\\d+"
+        }
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.fennec",
+				"match": "\\b(if|while|for|return|do|to|continue|break|else)\\b"
+			}, {
+				"name": "keyword.other.fennec",
+				"match": "\\b(true|false)\\b"
+			
+			}, {
+				"name": "storage.type.fennec",
+				"match": "\\b(int|float|bool|void)\\b"
+			
+			},
+			{
+				"name": "entity.name.function.fennec",
+				"match": "\\b([a-zA-Z_]\\w*)\\s*\\("
+			}, 
+			{
+				"name": "keyword.control.include.fennec",
+				"match": "#include\\s+<[^>]+>"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.fennec",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.fennec",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.fennec"
+}

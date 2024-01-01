@@ -1,0 +1,29 @@
+{
+  "name": "fennec-lang",
+  "displayName": "fennec-lang",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "fennec",
+      "aliases": ["fennec", "fennec"],
+      "extensions": [".fc"],
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./icon/wires.png",
+        "dark": "./icon/wires.png"
+      }
+    }],
+    "grammars": [{
+      "language": "fennec",
+      "scopeName": "source.fennec",
+      "path": "./syntaxes/fennec.tmLanguage.json"
+    }]
+  }
+}
