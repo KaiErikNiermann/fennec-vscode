@@ -10,7 +10,7 @@ Basic syntax highlighting for the FenneC language
 
 ## Release Notes
 
-### 0.0.1 
+### 0.0.2
 
 Basic syntax highlighting for the FenneC language, and added an icon for `.fc` files 
 
