@@ -2,21 +2,21 @@
 
 ## Features
 
-Basic syntax highlighting for the FenneC language 
+Basic syntax highlighting for the FenneC language based on the syntax highlighting of C.
 
 ## Known Issues
 
-- Certain things are still not highlighted correctly
+There are certain things not quite properly highlighted. If you spot any further issues feel free to raise them [here](https://github.com/KaiErikNiermann/fennec-vscode/issues).
 
 ## Release Notes
-
-### 0.0.2
-
-Basic syntax highlighting for the FenneC language, and added an icon for `.fc` files 
 
 ### 0.0.3 
 
 Small fixes
+
+### 0.0.4
+
+Fixes for recognition of operators and format strings.
 
 ## Acknowledgements 
 

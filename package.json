@@ -2,8 +2,8 @@
   "name": "fennec-lang",
   "displayName": "fennec-lang",
   "description": "",
-  "version": "0.0.3",
-  "icon": "./icon/fennec.png",
+  "version": "0.0.4",
+  "icon": "./icon/fennec_nobackground.png",
   "publisher": "KaiErikNiermann",
   "repository": {
     "type": "git",
