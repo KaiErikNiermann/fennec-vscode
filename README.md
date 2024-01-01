@@ -14,6 +14,10 @@ Basic syntax highlighting for the FenneC language
 
 Basic syntax highlighting for the FenneC language, and added an icon for `.fc` files 
 
+### 0.0.3 
+
+Small fixes
+
 ## Acknowledgements 
 
 The artist for the mascot is Mei-Li Nieuwland

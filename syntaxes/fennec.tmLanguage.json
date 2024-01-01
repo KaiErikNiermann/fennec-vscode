@@ -41,7 +41,7 @@
 				"match": "\\b(if|while|for|return|do|to|continue|break|else)\\b"
 			}, {
 				"name": "keyword.other.fennec",
-				"match": "\\b(true|false)\\b"
+				"match": "\\b(true|false|static|extern)\\b"
 			
 			}, {
 				"name": "storage.type.fennec",

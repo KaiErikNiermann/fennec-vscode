@@ -2,7 +2,7 @@
   "name": "fennec-lang",
   "displayName": "fennec-lang",
   "description": "",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "icon": "./icon/fennec.png",
   "publisher": "KaiErikNiermann",
   "repository": {
@@ -18,7 +18,7 @@
   "contributes": {
     "languages": [{
       "id": "fennec",
-      "aliases": ["fennec", "fennec"],
+      "aliases": ["fennec", "fenneC", "fc", "Fennec", "FenneC"],
       "extensions": [".fc"],
       "configuration": "./language-configuration.json",
       "icon": {
