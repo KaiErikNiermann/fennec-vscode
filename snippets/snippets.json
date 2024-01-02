@@ -37,9 +37,9 @@
 		"prefix": "if-else",
 		"body": [
 		  "if ($1) {",
-		  "  $2",
+		  "    $2",
 		  "} else {",
-		  "  $3",
+		  "    $3",
 		  "}$0"
 		],
 		"description": "If-Else Statement"
@@ -48,7 +48,7 @@
 	"prefix": "do-while",
 	"body": [
 		"do {",
-		"  $1",
+		"    $1",
 		"} while ($2);$0"
 	],
 	"description": "Do-While Loop"
@@ -57,7 +57,7 @@
 		"prefix": "if",
 		"body": [
 		  "if ($1) {",
-		  "  $2",
+		  "    $2",
 		  "}$0"
 		],
 		"description": "If Statement"
