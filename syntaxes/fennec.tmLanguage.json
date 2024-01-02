@@ -53,7 +53,7 @@
 			
 			}, {
 				"name": "storage.type.fennec",
-				"match": "\\b(int|float|bool|void)\\b"
+				"match": "\\b(int|float|bool|void|char)\\b"
 			
 			},
 			{
