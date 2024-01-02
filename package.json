@@ -1,7 +1,7 @@
 {
   "name": "fennec-lang",
-  "displayName": "fennec-lang",
-  "description": "",
+  "displayName": "FenneC Language Support",
+  "description": "Syntax highlighting for the FenneC programming language in the style of C highlighting",
   "version": "0.0.4",
   "icon": "./icon/fennec_nobackground.png",
   "publisher": "KaiErikNiermann",
@@ -30,6 +30,12 @@
       "language": "fennec",
       "scopeName": "source.fennec",
       "path": "./syntaxes/fennec.tmLanguage.json"
-    }]
+    }], 
+    "snippets": [
+      {
+        "language": "fennec",
+        "path": "./snippets/snippets.json"
+      }
+    ]
   }
 }

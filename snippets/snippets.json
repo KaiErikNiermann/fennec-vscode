@@ -1,0 +1,65 @@
+{
+	"hello-world": {
+		"prefix": "hello",
+		"body": [
+			"extern int printf(char[] format, ...);",
+			"",
+			"int main() {", 
+			"	printf(\"Hello world\\n\");$0",
+			"	return 0;"
+			"}",
+			""
+		]
+	}, 
+	"while": {
+		"prefix": "while-loop", 
+		"body": [
+			"while($1) {", 
+			"	$2", 
+			"}$0"
+		]
+	},
+	"printf": {
+		"prefix": "print", 
+		"body": [
+			"printf(\"$1\"$2);$0"
+		]
+	}, 
+	"for-loop": {
+		"prefix": "for", 
+		"body": [
+			"for(int $1 = $2 to $3) {", 
+			"	$4", 
+			"}$0"
+		]
+	}, 
+	"if-else": {
+		"prefix": "if-else",
+		"body": [
+		  "if ($1) {",
+		  "  $2",
+		  "} else {",
+		  "  $3",
+		  "}$0"
+		],
+		"description": "If-Else Statement"
+	  },
+	"do-while": {
+	"prefix": "do-while",
+	"body": [
+		"do {",
+		"  $1",
+		"} while ($2);$0"
+	],
+	"description": "Do-While Loop"
+	}, 
+	"if": {
+		"prefix": "if",
+		"body": [
+		  "if ($1) {",
+		  "  $2",
+		  "}$0"
+		],
+		"description": "If Statement"
+	  }
+}

@@ -62,11 +62,26 @@
 			}, 
 			{
 				"name": "keyword.control.include.fennec",
-				"match": "#include\\s+<[^>]+>"
+				"match": "#include\\s+<[^>]+>|#include\\s+\"[^\"]+\""
 			}, 
 			{
 				"name": "keyword.other", 
 				"match": ";|,"
+			},
+			{
+				"name": "keyword.define.fennec",
+				"begin": "#define",
+				"end": "$",
+				"patterns": [
+					{
+						"name": "constant.other.fennec",
+						"match": "\\b([a-zA-Z_]\\w*)\\b"
+					},
+					{
+						"name": "constant.numeric.fennec",
+						"match": "\\b([0-9]+)\\b"
+					}
+				]
 			}]
 		},
 		"strings": {
