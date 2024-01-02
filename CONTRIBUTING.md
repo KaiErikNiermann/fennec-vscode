@@ -18,12 +18,12 @@ Thank you for your interest in contributing to the Fennec Language Extension! By
 
 1. Fork the repository to your GitHub account.
 2. Clone the forked repository to your local machine.
-3. Navigate to the `client` and `server` directories and run `npm install` to install dependencies.
+3. Run `npm install`
 
 ### Making Changes
 
-- **Syntax Highlighting**: If you're working on improving syntax highlighting, make changes in the `syntaxes` directory.
-- **Language Server**: For enhancements to the language server, focus on the `server` directory.
+- **Syntax Highlighting**: If you're working on improving syntax highlighting, make changes to `syntaxes/fennec.tmLanguage.json`
+- **Language Server**: For enhancements to the language server, focus on the `server/src` directory.
 - **Snippets**: If you want to add any snippets then you can add them to `snippets/snippets.json`
 
 ### Committing Changes
