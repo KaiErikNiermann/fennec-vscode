@@ -1,8 +1,8 @@
 {
   "name": "fennec-lang",
   "displayName": "FenneC Language Support",
-  "description": "Syntax highlighting for the FenneC programming language in the style of C highlighting",
-  "version": "0.0.4",
+  "description": "Syntax highlighting for the FenneC programming language in the style of C highlighting and snippets for common code structures.",
+  "version": "0.0.5",
   "icon": "./icon/fennec_nobackground.png",
   "publisher": "KaiErikNiermann",
   "repository": {

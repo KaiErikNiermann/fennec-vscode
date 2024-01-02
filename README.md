@@ -33,3 +33,6 @@ I put this together quite quickly so there might still be some issues with the h
 
 The artist for the wonderful FenneC mascot is [Mei-Li Nieuwland](https://liea.nl/).
 
+The FenneC language and its specification is inspired by (but not related to) the CiviC language which was invented by [Clemens Grelck](https://staff.science.uva.nl/c.u.grelck/) for the Compiler Construction course taught at the University of Amsterdam.
+
+Finally credit to the teaching staff of the [Compiler Construction course](https://studiegids.vu.nl/en/Bachelor/2023-2024/computer-science/XB_0003#/) at VU Amsterdam for creating such an interesting course. I hope this extension can help people have as much fun with the assignments as I did.
