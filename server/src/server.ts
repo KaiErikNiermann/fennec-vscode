@@ -172,22 +172,29 @@ connection.onHover((params) => {
     }
 
     // regex pattern to match on functions
-    const pattern = /\s*\b[^()]+\(.*\);?\s*$/g;
+    const pattern = /\s*\b[^()]+\(.*\);?\s*|.*$/g;
 
     const position = params.position;
+    console.log(`position: ${position.line}`);
+    console.log(`position: ${position.character}`);
     const line = document.getText({
         start: { line: position.line, character: 0 },
         end: { line: position.line + 1, character: 0 },
     });
 
+    console.log(`line: ${line}`);
+
     // check if line matches regex pattern
     const match = pattern.exec(line);
+    console.log(`match: ${match}`);
     if (!match) {
+        console.log("no match");
         return null;
     }
 
     const functionName = match[0].split("(")[0].trim();
     const lines = document.getText().split("\n");
+    console.log(`functionName: ${functionName}`);
     let functionDefinition = "";
     let funcDefLine = 0;
     for (let i = 0; i < lines.length; i++) {
@@ -197,6 +204,10 @@ connection.onHover((params) => {
             functionDefinition = functionDefinition.split("{")[0];
             break;
         }
+    }
+
+    if (!functionDefinition) {
+        return null;
     }
 
     let comments = "";
