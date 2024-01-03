@@ -29,7 +29,8 @@ Thank you for your interest in contributing to the Fennec Language Extension! By
 ### Creating a Pull Request
 
 1. Push your changes to your forked repository.
-2. Open a pull request against the `main` branch of the original repository.
+2. Remember to run `npm run lint` before submitting a PR
+3. Open a pull request against the `main` branch of the original repository.
 
 ## Reporting Issues
 

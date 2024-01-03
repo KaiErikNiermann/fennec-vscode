@@ -74,9 +74,7 @@ connection.onInitialized(() => {
         connection.client.register(DidChangeConfigurationNotification.type, undefined);
     }
     if (hasWorkspaceFolderCapability) {
-        connection.workspace.onDidChangeWorkspaceFolders((_event) => {
-            connection.console.log("Workspace folder change event received.");
-        });
+        connection.workspace.onDidChangeWorkspaceFolders((_event) => {});
     }
 });
 
@@ -140,7 +138,6 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 connection.onDidChangeWatchedFiles((_change) => {
     // Monitored files have change in VSCode
-    connection.console.log("We received a file change event");
 });
 
 // This handler provides the initial list of the completion items.
@@ -151,9 +148,24 @@ connection.onCompletion((_textDocumentPosition: TextDocumentPositionParams): Com
     return [
         {
             label: "printf",
-            kind: CompletionItemKind.Text,
+            kind: CompletionItemKind.Function,
             data: 1,
         },
+        {
+            label: "cstdlib.fh", 
+            kind: CompletionItemKind.File,
+            data: 2,
+        }, 
+        {
+            label: "atoi",
+            kind: CompletionItemKind.Function,
+            data: 3,
+        },
+        {
+            label: "exit", 
+            kind: CompletionItemKind.Function,
+            data: 4,
+        }, 
     ];
 });
 
@@ -161,9 +173,32 @@ connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
     if (item.data === 1) {
         item.detail = "int printf ( const char * format, ... );";
         item.documentation = "print formatted data to stdout";
-    } 
+    } else if (item.data === 2) {
+        item.detail = "C standard library funcs";
+        item.documentation = "Prototypes for functions present in the C standard library";
+    } else if (item.data === 3) {
+        item.detail = "int atoi ( const char * str );";
+        item.documentation = "convert string to integer";
+    } else if (item.data === 4) {
+        item.detail = "void exit ( int status );";
+        item.documentation = "terminate calling process";
+    }
     return item;
 });
+
+function nthOccurenceIndexRange(
+    LOCInput: string,
+    functionName: string,
+    index: number
+): [number, number] {
+    let matchIndex = 0;
+    const functionCall = `${functionName}(`;
+    matchIndex = LOCInput.indexOf(functionCall, matchIndex);
+    for (let i = 0; i < index; i++) {
+        matchIndex = LOCInput.indexOf(functionCall, matchIndex + 1);
+    }
+    return [matchIndex - 1, matchIndex + functionName.length - 1];
+}
 
 connection.onHover((params) => {
     const document = documents.get(params.textDocument.uri);
@@ -171,8 +206,7 @@ connection.onHover((params) => {
         return null;
     }
 
-    // regex pattern to match on functions
-    const pattern = /\s*\b[^()]+\(.*\);?\s*|.*$/g;
+    const pattern = /\s*\w+\s*(?=\()/g;
 
     const position = params.position;
     const line = document.getText({
@@ -180,57 +214,49 @@ connection.onHover((params) => {
         end: { line: position.line + 1, character: 0 },
     });
 
+    // match all function calls in the line
+    const res = line.match(pattern);
+    if (!res) return null;
 
-    // check if line matches regex pattern
-    const match = pattern.exec(line);
-    if (!match) {
-        return null;
-    }
+    const funcCalls: string[] = res.map((calls) => calls.trim());
+    if (!funcCalls) return null;
 
-    const functionName = match[0].split("(")[0].trim();
+    const counts: Map<string, number> = new Map();
+
+    funcCalls.forEach((call) => {
+        counts.set(call, (counts.get(call) ?? 0) + 1);
+    });
+
+    const funcIndexRanges: Array<[string, [number, number]]> = [];
+
+    counts.forEach((occur, call) => {
+        for (let i = 0; i < occur; i++) {
+            funcIndexRanges.push([call, nthOccurenceIndexRange(line, call, i)]);
+        }
+    });
+
+    const inRange = (num: number, lo: number, hi: number) => num >= lo && num <= hi;
+
+    const match = funcIndexRanges.filter((callArr) =>
+        inRange(position.character, callArr[1][0], callArr[1][1])
+    ) ?? [[""]];
+
+    if (!match.length) return null;
+
+    // Get function definition and associated comment
+    const functionName = match[0][0];
     const lines = document.getText().split("\n");
     let functionDefinition = "";
     let funcDefLine = 0;
-    for (let i = 0; i < lines.length; i++) {
-        if (lines[i].includes(functionName) && lines[i].includes("{")) {
-            functionDefinition = lines[i];
-            funcDefLine = i;
-            functionDefinition = functionDefinition.split("{")[0];
-            break;
-        }
-    }
+    ({ funcDefLine, functionDefinition } = getFuncDef(lines, functionName, functionDefinition));
 
-    if (!functionDefinition) {
-        return null;
-    }
+    if (!functionDefinition) return null;
 
-    let comments = "";
-	let inBlockComment = false;
-    let importantLines: string[] = [];
-	for (let i = funcDefLine - 1; i >= 0; i--) {
-		if (lines[i].includes("//")) {
-			importantLines.unshift(lines[i]);
-		} else if (lines[i].includes("*/")) {
-			inBlockComment = true;
-			continue;
-		} else if (lines[i].includes("/*")) {
-			importantLines.unshift(lines[i]);
-			break;
-		} 
-		if (inBlockComment && !lines[i].includes("*/")) {
-			importantLines.unshift(lines[i]);
-		} else {
-			break;
-		}
-	}
-    
-	comments = importantLines.map((line) =>
-        line.replace(/\/\//g, "").replace("\*\/", "").replace(/\/\*/g, "").trim()
-    ).join("\n");
+    const commentString = getFuncDescription(funcDefLine, lines, false)
+        .map((line) => line.replace(/\/\//g, "").replace("*/", "").replace(/\/\*/g, "").trim())
+        .join("\n");
 
-    console.log(`comments for ${functionName}: ${comments}`);
-
-    const hoverText = getHoverText(functionDefinition, comments);
+    const hoverText = getHoverText(functionDefinition, commentString);
 
     if (hoverText) {
         const hover: Hover = {
@@ -244,6 +270,40 @@ connection.onHover((params) => {
 
     return null;
 });
+
+function getFuncDef(lines: string[], functionName: string, functionDefinition: string) {
+    let funcDefLine = 0;
+    for (let i = 0; i < lines.length; i++) {
+        if (lines[i].includes(functionName) && lines[i].includes("{")) {
+            functionDefinition = lines[i];
+            funcDefLine = i;
+            functionDefinition = functionDefinition.split("{")[0];
+            break;
+        }
+    }
+    return { funcDefLine, functionDefinition };
+}
+
+function getFuncDescription(funcDefLine: number, lines: string[], inBlockComment: boolean) {
+    const importantLines: string[] = [];
+    for (let i = funcDefLine - 1; i >= 0; i--) {
+        if (lines[i].includes("//")) {
+            importantLines.unshift(lines[i]);
+        } else if (lines[i].includes("*/")) {
+            inBlockComment = true;
+            continue;
+        } else if (lines[i].includes("/*")) {
+            importantLines.unshift(lines[i]);
+            break;
+        }
+        if (inBlockComment && !lines[i].includes("*/")) {
+            importantLines.unshift(lines[i]);
+        } else {
+            break;
+        }
+    }
+    return importantLines;
+}
 
 function getHoverText(functionDefinition: string, commentText: string): string | null {
     return ["```c", functionDefinition, "```\n", commentText].join("\n");

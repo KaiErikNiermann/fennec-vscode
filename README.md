@@ -4,7 +4,7 @@
 
 This extension aims to provide full comprehensive language support for FenneC, including C-style syntax highlighting, code snippets for basic constructs, and some basic IntelliSense information. Hopefully, this can make working with the language both faster and easier.
 
-<img src="./assets/hover-info.png" alt="isolated" width="500" style="max-width: 100%"/>
+<img src="./assets/hover-info.png" alt="isolated" width="550" style="max-width: 100%"/>
 
 ## Features
 
@@ -35,6 +35,12 @@ I put this together quite quickly so there might still be some issues. If you co
 ### Version 0.0.6
 
 - Added a language server which enables hover information and some basic autocomplete
+
+### Version 0.0.7
+
+- Some minor fixes to the syntax highlighting 
+- More autocomplete for functions from the C standard library 
+- Improve precision of hover information
 
 ## Acknowledgements
 
