@@ -26,10 +26,6 @@ Thank you for your interest in contributing to the Fennec Language Extension! By
 - **Language Server**: For enhancements to the language server, focus on the `server/src` directory.
 - **Snippets**: If you want to add any snippets then you can add them to `snippets/snippets.json`
 
-### Committing Changes
-
-Please make your commit messages meaningful and descriptive. Follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
-
 ### Creating a Pull Request
 
 1. Push your changes to your forked repository.

@@ -2,7 +2,9 @@
 
 ## Overview
 
-This extension aims to provide full comprehensive language support for FenneC, including syntax C-style syntax highlighting, code snippets for basic constructs, and some basic IntelliSense information. Hopefully this can make working with the language both faster and easier.
+This extension aims to provide full comprehensive language support for FenneC, including C-style syntax highlighting, code snippets for basic constructs, and some basic IntelliSense information. Hopefully, this can make working with the language both faster and easier.
+
+<img src="./assets/hover-info.png" alt="isolated" width="500" style="max-width: 100%"/>
 
 ## Features
 
@@ -27,8 +29,8 @@ I put this together quite quickly so there might still be some issues. If you co
 
 ### Version 0.0.5
 
-- Added snippets for most basic lang constructs
-- Further improvements to syntax highlighting for larger coverage of lang spec
+- Added snippets for most basic language constructs
+- Further improvements to syntax highlighting for a larger coverage of lang spec
 
 ### Version 0.0.6
 
@@ -38,6 +40,6 @@ I put this together quite quickly so there might still be some issues. If you co
 
 The artist for the wonderful FenneC mascot is [Mei-Li Nieuwland](https://liea.nl/).
 
-The FenneC language and its specification is inspired by (but not related to) the CiviC language which was invented by [Clemens Grelck](https://staff.science.uva.nl/c.u.grelck/) for the Compiler Construction course taught at the University of Amsterdam.
+The FenneC language and its specification are inspired by (but not related to) the CiviC language which was invented by [Clemens Grelck](https://staff.science.uva.nl/c.u.grelck/) for the Compiler Construction course taught at the University of Amsterdam.
 
 Finally credit to the teaching staff of the [Compiler Construction course](https://studiegids.vu.nl/en/Bachelor/2023-2024/computer-science/XB_0003#/) at VU Amsterdam for creating such an interesting course. I hope this extension can help people have as much fun with the assignments as I did.

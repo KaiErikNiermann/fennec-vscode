@@ -175,30 +175,24 @@ connection.onHover((params) => {
     const pattern = /\s*\b[^()]+\(.*\);?\s*|.*$/g;
 
     const position = params.position;
-    console.log(`position: ${position.line}`);
-    console.log(`position: ${position.character}`);
     const line = document.getText({
         start: { line: position.line, character: 0 },
         end: { line: position.line + 1, character: 0 },
     });
 
-    console.log(`line: ${line}`);
 
     // check if line matches regex pattern
     const match = pattern.exec(line);
-    console.log(`match: ${match}`);
     if (!match) {
-        console.log("no match");
         return null;
     }
 
     const functionName = match[0].split("(")[0].trim();
     const lines = document.getText().split("\n");
-    console.log(`functionName: ${functionName}`);
     let functionDefinition = "";
     let funcDefLine = 0;
     for (let i = 0; i < lines.length; i++) {
-        if (lines[i].includes(functionName)) {
+        if (lines[i].includes(functionName) && lines[i].includes("{")) {
             functionDefinition = lines[i];
             funcDefLine = i;
             functionDefinition = functionDefinition.split("{")[0];
@@ -212,23 +206,19 @@ connection.onHover((params) => {
 
     let comments = "";
 	let inBlockComment = false;
-	console.log(`funcDefLine: ${funcDefLine}`);
-    const importantLines: string[] = [];
+    let importantLines: string[] = [];
 	for (let i = funcDefLine - 1; i >= 0; i--) {
 		if (lines[i].includes("//")) {
-			console.log(`pushing ${lines[i]}`);
-			importantLines.push(lines[i]);
+			importantLines.unshift(lines[i]);
 		} else if (lines[i].includes("*/")) {
 			inBlockComment = true;
 			continue;
 		} else if (lines[i].includes("/*")) {
-			console.log(`pushing ${lines[i]}`);
-			importantLines.push(lines[i]);
+			importantLines.unshift(lines[i]);
 			break;
 		} 
 		if (inBlockComment && !lines[i].includes("*/")) {
-			console.log(`pushing ${lines[i]}`);
-			importantLines.push(lines[i]);
+			importantLines.unshift(lines[i]);
 		} else {
 			break;
 		}
@@ -237,6 +227,8 @@ connection.onHover((params) => {
 	comments = importantLines.map((line) =>
         line.replace(/\/\//g, "").replace("\*\/", "").replace(/\/\*/g, "").trim()
     ).join("\n");
+
+    console.log(`comments for ${functionName}: ${comments}`);
 
     const hoverText = getHoverText(functionDefinition, comments);
 
