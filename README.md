@@ -10,37 +10,19 @@ This extension aims to provide full comprehensive language support for FenneC, i
 
 - Mostly full C-style syntax highlighting 
 - Snippets for basic constructs 
-- Basic C-style IntelliSense for functions
+- Basic C-style IntelliSense for functions including hover and autocomplete
 
 ## Known Issues
 
-I put this together quite quickly so there might still be some issues. If you come across any problems/issues or have suggestions for enhancements, please don't hesitate to [raise them here](https://github.com/KaiErikNiermann/fennec-vscode/issues).
+If you come across any problems/issues or have suggestions for enhancements, please don't hesitate to [raise them here](https://github.com/KaiErikNiermann/fennec-vscode/issues).
 
-## Release Notes
+## Contributing 
 
-### Version 0.0.3
+Since FenneC is a mainly educational language this extension is very much made by students for students. Any contributions are greatly appreciated, if you want to know where to get started helping checkout the [contributing guide](https://github.com/KaiErikNiermann/fennec-vscode/blob/main/CONTRIBUTING.md). 
 
-- Small fixes to improve overall extension 
+## Release notes
 
-### Version 0.0.4
-
-- Improved recognition of operators 
-- Added highlighting for format strings
-
-### Version 0.0.5
-
-- Added snippets for most basic language constructs
-- Further improvements to syntax highlighting for a larger coverage of lang spec
-
-### Version 0.0.6
-
-- Added a language server which enables hover information and some basic autocomplete
-
-### Version 0.0.7
-
-- Some minor fixes to the syntax highlighting 
-- More autocomplete for functions from the C standard library 
-- Improve precision of hover information
+Information about new releases is documented in the [changelog](https://github.com/KaiErikNiermann/fennec-vscode/blob/main/CHANGELOG.md) on the project github.
 
 ## Acknowledgements
 
