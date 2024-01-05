@@ -1,5 +1,7 @@
 # FenneC Language Support
 
+[**Repository**](https://github.com/KaiErikNiermann/fennec-vscode) **|** [**Issues**](https://github.com/KaiErikNiermann/fennec-vscode/issues) 
+
 ## Overview
 
 This extension aims to provide full comprehensive language support for FenneC, including C-style syntax highlighting, code snippets for basic constructs, and some basic IntelliSense information. Hopefully, this can make working with the language both faster and easier.
