@@ -1,6 +1,6 @@
 # FenneC Language Support
 
-[**Repository**](https://github.com/KaiErikNiermann/fennec-vscode) **|** [**Issues**](https://github.com/KaiErikNiermann/fennec-vscode/issues) 
+[**Repository**](https://github.com/KaiErikNiermann/fennec-vscode) **|** [**Issues**](https://github.com/KaiErikNiermann/fennec-vscode/issues) **|** [**Release notes**](https://github.com/KaiErikNiermann/fennec-vscode/blob/main/CHANGELOG.md)
 
 ## Overview
 
