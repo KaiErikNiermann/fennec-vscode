@@ -24,7 +24,7 @@ Since FenneC is a mainly educational language this extension is very much made b
 
 ## Release notes
 
-Information about new releases is documented in the [changelog](https://github.com/KaiErikNiermann/fennec-vscode/blob/main/CHANGELOG.md) on the project github.
+Information about new releases and any associated changes is documented in the [changelog](https://github.com/KaiErikNiermann/fennec-vscode/blob/main/CHANGELOG.md) on the project github.
 
 ## Acknowledgements
 
