@@ -78,17 +78,16 @@
 						"match": "\\b([0-9]+)\\b"
 					}
 				]
-			}, 
+			},
 			{
 				"name": "keyword.include.fennec",
-				"begin": "#include",
-				"end": "$",
-				"patterns": [
-					{
-						"name": "constant.other.fennec",
-						"match": "\\b([a-zA-Z_]\\w*)\\b"
+				"match": "#include <(.*)>",
+				"captures": {
+					"1": {
+						"name": "string.quoted.double.fennec"
 					}
-				]
+				}
+				
 			}]
 		},
 		"strings": {

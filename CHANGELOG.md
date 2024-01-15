@@ -30,3 +30,9 @@
 - Some minor fixes to the syntax highlighting 
 - More autocomplete for functions from the C standard library 
 - Improve precision of hover information
+
+--- 
+
+### v0.0.8
+
+- Misc small fixes and some project updates

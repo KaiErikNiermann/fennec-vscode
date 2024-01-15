@@ -166,6 +166,11 @@ connection.onCompletion((_textDocumentPosition: TextDocumentPositionParams): Com
             kind: CompletionItemKind.Function,
             data: 4,
         }, 
+        {
+            label: "include",
+            kind: CompletionItemKind.Keyword,
+            data: 5,
+        }
     ];
 });
 
@@ -182,6 +187,8 @@ connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
     } else if (item.data === 4) {
         item.detail = "void exit ( int status );";
         item.documentation = "terminate calling process";
+    } else if (item.data === 5) {
+        item.detail = "preprocessor keyword";
     }
     return item;
 });

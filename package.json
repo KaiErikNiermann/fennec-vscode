@@ -2,7 +2,7 @@
     "name": "fennec-lang",
     "displayName": "FenneC Language Support",
     "description": "Language support for the FenneC programming language including syntax highlighting, snippets and a language server.",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "icon": "./icon/fennec_nobackground.png",
     "publisher": "KaiErikNiermann",
     "repository": {
