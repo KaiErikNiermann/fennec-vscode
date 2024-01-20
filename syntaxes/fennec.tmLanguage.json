@@ -66,18 +66,45 @@
 			},
 			{
 				"name": "keyword.define.fennec",
-				"begin": "#define",
-				"end": "$",
-				"patterns": [
-					{
-						"name": "constant.other.fennec",
-						"match": "\\b([a-zA-Z_]\\w*)\\b"
-					},
-					{
-						"name": "constant.numeric.fennec",
-						"match": "\\b([0-9]+)\\b"
+				"match": "#define\\s*(\\S+)",
+				"captures": {
+					"1": {
+						"name": "entity.name.function.fennec"
 					}
-				]
+				}
+			},
+			{
+				"name": "keyword.define.fennec.string",
+				"match": "#define\\s*(\\S+)(?:\\s+(\".*\"))",
+				"captures": {
+					"1": {
+						"name": "entity.name.function.fennec"
+					},
+					"2": {
+						"name": "string.quoted.double.fennec"
+					}
+				}
+			},
+			{
+				"name": "keyword.define.fennec.numeric",
+				"match": "#define\\s*(\\S+)(?:\\s+(\\d+))",
+				"captures": {
+					"1": {
+						"name": "entity.name.function.fennec"
+					},
+					"2": {
+						"name": "constant.numeric.fennec"
+					}
+				}	
+			},
+			{
+				"name": "keyword.include.fennec",
+				"match": "#include \"(.*)\"",
+				"captures": {
+					"1": {
+						"name": "string.quoted.double.fennec"
+					}
+				}
 			},
 			{
 				"name": "keyword.include.fennec",
