@@ -51,7 +51,8 @@
 				"name": "keyword.other.fennec",
 				"match": "\\b(true|false|static|extern)\\b"
 			
-			}, {
+			}, 
+			{
 				"name": "storage.type.fennec",
 				"match": "\\b(int|float|bool|void|char)\\b"
 			
