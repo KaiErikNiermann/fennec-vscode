@@ -193,6 +193,15 @@ connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
     return item;
 });
 
+const rePatterns = {
+    Comments: /((\/\/|\*|\/\\*).*\n)*/gm,
+    Define: /#define\s*(\S+)(?:\s+(.*))/gm,
+    VarDef: /((?:(\/\/|\*|\/\\*).*\n)*)[^\n]*\b((?:int|float|char|bool)\s*(\w)\s*=\s*(.*);*)/gm,
+    Vars: /(\w+\(?(.*)?\)|\w+)(?<!\b(int|float|char|bool))/gm,
+    FuncCall: /(\w+)\s*\((.*)\)/gm,
+    FuncDef: /((?:(\/\/|\*|\/\\*).*\n)*)((?:int|char|float)\s*(\w+)\s*\((.*)\))/gm
+};
+
 function nthOccurenceIndexRange(
     LOCInput: string,
     functionName: string,
@@ -213,57 +222,61 @@ connection.onHover((params) => {
         return null;
     }
 
-    const pattern = /\s*\w+\s*(?=\()/g;
-
     const position = params.position;
     const line = document.getText({
         start: { line: position.line, character: 0 },
         end: { line: position.line + 1, character: 0 },
     });
 
-    // match all function calls in the line
-    const res = line.match(pattern);
-    if (!res) return null;
+    const vars = Array.from(line.matchAll(rePatterns.Vars));
 
-    const funcCalls: string[] = res.map((calls) => calls.trim());
-    if (!funcCalls) return null;
+    const varUnderCursor = vars
+        .map((varContainer) => {
+            const varName = varContainer[0];
+            const varContainerIndex = varContainer.index ?? -1;
+            return {
+                varContainer,
+                isUnderCursor:
+                    varContainerIndex <= position.character && position.character <= varContainerIndex + varName.length,
+            };
+        })
+        .find((varContainer) => varContainer.isUnderCursor)?.varContainer;
 
-    const counts: Map<string, number> = new Map();
+    console.log(`varUnderCursor: ${varUnderCursor}`);
 
-    funcCalls.forEach((call) => {
-        counts.set(call, (counts.get(call) ?? 0) + 1);
-    });
+    if (!varUnderCursor) {
+        return null;
+    }
 
-    const funcIndexRanges: Array<[string, [number, number]]> = [];
+    let varUnderCursorName = varUnderCursor?.[0] ?? "";
+    const varUnderCursorFuncCall = Array.from(varUnderCursorName?.matchAll(rePatterns.FuncCall));
+    let defsInFile = Array.from(document.getText.toString().matchAll(rePatterns.VarDef));
 
-    counts.forEach((occur, call) => {
-        for (let i = 0; i < occur; i++) {
-            funcIndexRanges.push([call, nthOccurenceIndexRange(line, call, i)]);
-        }
-    });
+    if (varUnderCursorFuncCall) {
+        console.log(varUnderCursorFuncCall);
+        varUnderCursorName = varUnderCursorFuncCall[0][1];
+        defsInFile = Array.from(document.getText.toString().matchAll(rePatterns.FuncDef));
+    }
 
-    const inRange = (num: number, lo: number, hi: number) => num >= lo && num <= hi;
+    console.log(`varUnderCursorName: ${varUnderCursorName}`);
 
-    const match = funcIndexRanges.filter((callArr) =>
-        inRange(position.character, callArr[1][0], callArr[1][1])
-    ) ?? [[""]];
+    const varDefInfo = {
+        varDef: "",
+        varComments: "",
+    };
 
-    if (!match.length) return null;
+    defsInFile
+        .forEach((varDef) => {
+            if (varDef[4] === varUnderCursorName) {
+                varDefInfo.varDef = varDef[3];
+                varDefInfo.varComments = varDef[1]
+                    .replace(/\/\/\s*/g, "")
+                    .replace(/\/[*]|[*]\/|[*]/gm, "");
+            }
+        });
 
-    // Get function definition and associated comment
-    const functionName = match[0][0];
-    const lines = document.getText().split("\n");
-    let functionDefinition = "";
-    let funcDefLine = 0;
-    ({ funcDefLine, functionDefinition } = getFuncDef(lines, functionName, functionDefinition));
-
-    if (!functionDefinition) return null;
-
-    const commentString = getFuncDescription(funcDefLine, lines, false)
-        .map((line) => line.replace(/\/\//g, "").replace("*/", "").replace(/\/\*/g, "").trim())
-        .join("\n");
-
-    const hoverText = getHoverText(functionDefinition, commentString);
+    console.log(`varDefInfo: ${varDefInfo.varDef}`);
+    const hoverText = getHoverText(varDefInfo.varDef, varDefInfo.varComments);
 
     if (hoverText) {
         const hover: Hover = {
